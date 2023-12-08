@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-server
+spec:
   replicas: 1
   template:
     spec:
@@ -12,9 +13,6 @@ metadata:
           args:
             - "--config.file=/etc/prometheus/prometheus.yaml"
             - "--storage.tsdb.path=/prometheus/"
-            - "--web.enable-lifecycle"
-            - "--web.route-prefix=/"
-            - "--web.external-url=http://EXTERNAL_IP/prom/"
           ports:
             - containerPort: 9090
           volumeMounts:
@@ -22,13 +20,6 @@ metadata:
               mountPath: /etc/prometheus/
             - name: prometheus-storage-volume
               mountPath: /prometheus/
-          resources:
-            limits:
-              cpu: "1"
-              memory: "1Gi"
-            requests:
-              cpu: "100m"
-              memory: "100Mi"
       volumes:
         - name: prometheus-config-volume
           configMap:
