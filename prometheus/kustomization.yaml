@@ -9,7 +9,8 @@ resources:
 - service-account.yaml
 - role-binding.yaml
 - deployment.yaml
-- service.yaml
+- service-ip.yaml
+- service-lb.yaml
 images:
 - name: prom/prometheus
 configMapGenerator:
